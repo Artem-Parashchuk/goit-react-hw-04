@@ -1,0 +1,9 @@
+.wrapper_error {
+    margin-top: 50px;
+}
+.error_text{
+    text-align: center;
+    font-size: 30px;
+    color: red;
+    letter-spacing: 0.05em
+}

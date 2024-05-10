@@ -24,14 +24,14 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
-    if (!value) {
+    if (!value.trim()) {
       return;
     }
-    async function fetchPhoto(query, page) {
+    async function fetchPhoto() {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://api.unsplash.com/search/photos?page=${page}&query=${query}&orientation=landscape&client_id=${keyAPI}`
+          `https://api.unsplash.com/search/photos?page=${page}&query=${value}&orientation=landscape&client_id=${keyAPI}`
         );
         setImages((prev) => [...prev, ...res.data.results]);
         setShowBtn(page < Math.ceil(res.data.total / 10));
@@ -41,13 +41,14 @@ function App() {
         setLoading(false);
       }
     }
-    fetchPhoto(value.search, page);
+    fetchPhoto();
   }, [value, page]);
 
   const handleSubmit = (value) => {
-    setValue(value);
+    setValue(value.search);
+    setImages([]);
+    setPage(1);
   };
-
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);
   };
@@ -70,7 +71,7 @@ function App() {
       )}
       {loading && <Loader />}
       {error && <ErrorMessage />}
-      {showBtn && <LoadMore handleClick={handleLoadMore} />}
+      {showBtn && value && <LoadMore handleClick={handleLoadMore} />}
       {largeImage && (
         <ImageModal
           closeModal={isCloseModal}

@@ -10,9 +10,10 @@ export const ImageCard = ({ image, openModal }) => {
   } = image;
 
   return (
-    <li className={s.item} onClick={() => openModal(regular)}>
+    <li className={s.item}>
       <div className={s.wrapper_img}>
         <img className={s.img}
+          onClick={()=>openModal(regular)}
           src={small}
           alt={alt_description}
         />

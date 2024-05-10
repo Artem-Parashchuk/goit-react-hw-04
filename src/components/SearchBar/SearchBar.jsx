@@ -7,7 +7,7 @@ const SearchBar = ({ onSubmit }) => {
     const form = e.target;
     const { search } = form.elements;
 
-    if (search.value === "") {
+    if (search.value.trim() === "") {
        toast.error("Поле для пошуку має бути заповненим");
        return
     }
